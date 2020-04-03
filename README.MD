@@ -45,7 +45,7 @@ Las propiedades de cada una de ellas serán:
 
 Lo que no podrá gestionar en esta versión será:
 
--   El alta, baja y modificación de estados. El sistema empezará con 4 estados básicos: en revisión, para hacer, en progreso, en QA, terminado
+-   El alta, baja y modificación de estados. El sistema empezará con 4 estados básicos: en análisis, para hacer, en progreso, en QA, en revisión, terminado
     
 -   El alta, baja y modificación de usuarios y sus respectivos roles/permisos.
     
