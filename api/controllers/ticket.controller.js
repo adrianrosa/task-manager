@@ -1,4 +1,5 @@
 const ticket = require('../models/ticket.model');
+const ticketService = require('../services/ticket.service');
 
 exports.getAll = (req, res) => {
     ticket.getAll()
@@ -20,7 +21,7 @@ exports.getOne = (req, res) => {
 };
 
 exports.create = (req, res) => {
-    const ticketToCreate = {title: req.body.title, number: 1, string: req.body.string};
+    const ticketToCreate = {title: req.body.title, number: null, string: req.body.string};
     ticket.create(ticketToCreate)
     .then(ticket => {
         ticketToCreate._id = ticket.insertedId;
@@ -30,13 +31,35 @@ exports.create = (req, res) => {
 };
 
 exports.change = function (req, res) {
-    res.json({data: 'Data ' + req.params.id + ' ' + req.query.a}).status(200);
+    const ticketToCreate = {title: req.body.title, string: req.body.string};
+    ticket.update(ticketToCreate, req.params.id)
+    .then(ticket => {
+        ticketToCreate._id = ticket.insertedId;
+        res.status(200).json({error: false, data: ticketToCreate});
+    })
+    .catch(err => res.status(500).json({error: true, data: err.message}));
 };
 
 exports.updateStatus = function (req, res) {
-    res.json({data: 'Data ' + req.params.id + ' ' + req.query.a}).status(200);
+    if (!ticketService.performTransition(req.body.status, req.body.newStatus)) {
+        res.status(500).json({error: true, data: `Change status not allowed ${req.body.status} -> ${req.body.newStatus}`});
+    }
+    const ticketToUpdate = {status: req.body.newStatus};
+    ticket.update(ticketToUpdate, req.params.id)
+    .then(ticket => {
+        ticketToUpdate._id = ticket.insertedId;
+        res.status(200).json({error: false, data: ticketToUpdate});
+    })
+    .catch(err => res.status(500).json({error: true, data: err.message}));
 };
 
 exports.delete = function (req, res) {
-    res.json({data: 'Data ' + req.params.id + ' ' + req.query.a}).status(200);
+    ticket.delete(req.params.id)
+    .then(ticketDeleted => {
+        if (ticketDeleted.deletedCount === 0) {
+            res.status(404).json({error: true, data: `Record (ID: ${req.params.id}) was not found`});
+        }
+        res.status(200).json({error: false, data: `${ticketDeleted.deletedCount} record (ID: ${req.params.id}) was deleted`});
+    })
+    .catch(err => res.status(500).json({error: true, data: err.message}));
 };

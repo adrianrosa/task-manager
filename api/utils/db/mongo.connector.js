@@ -34,14 +34,13 @@ const save = (entity, object, id) => {
         if (id) {
             return db.collection(entity).updateOne({_id: new ObjectId(id)}, {$set: object});
         }
-        if (object.number) {
+        if (object.hasOwnProperty('number')) {
             return getNextSequenceValue(entity).then(result => {
                 object.number = result.value.sequence_value;
                 return db.collection(entity).insertOne(object);
             });
-        } else {
-            return db.collection(entity).insertOne(object);
         }
+        return db.collection(entity).insertOne(object);
     })
     .catch(err => console.log(err));
 };
@@ -57,6 +56,13 @@ const getNextSequenceValue = (entity) => {
     });
 }
 
+const drop = (entity, id) => {
+    return getClient().then(db => {
+        return db.collection(entity).deleteOne({_id: new ObjectId(id)});
+    });
+}
+
 exports.init = init;
 exports.get = get;
 exports.save = save;
+exports.drop = drop;

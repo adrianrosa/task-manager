@@ -11,3 +11,11 @@ exports.getOne = (id) => {
 exports.create = ticket => {
     return db.save(entityName, ticket).then(result => result);
 };
+
+exports.update = (ticket, id) => {
+    return db.save(entityName, ticket, id).then(result => result);
+};
+
+exports.delete = (id) => {
+    return db.drop(entityName, id).then(result => result);
+};
