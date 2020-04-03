@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const express = require('express');
 const app = express();
 const routes = require('./routes');
-const db = require('./utils/db/factory.db.util');
+const db = require('./utils/db/mongo.connector');
 
 // Add morgan module
 app.use(morgan("combined"));
@@ -30,7 +30,8 @@ app.all('/*', function(req, res, next) {
 app.use('/api/', routes);
 
 // DB connection
-db.init();
+global.db = db;
+db.init().then(() => console.log("DB connection success!"));
 
 // Start server
 app.listen(port, () => {
