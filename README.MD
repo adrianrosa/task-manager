@@ -48,19 +48,19 @@ Accept: `application/json` <br />
 Content-type: `application/json`
 - POST `/tickets` (Crea un ticket).<br />
 Status code: 201 (éxito al crear un ticket) | 500 (error al crear el ticket) <br />
-Body: {"title": "titulo", "date_created": "fecha_creacion", "user": "usuario", "description": "descripcion", "proyect": "proyecto"} <br />
+Body: `{"title": "titulo", "date_created": "fecha_creacion", "user": "usuario", "description": "descripcion", "proyect": "proyecto"}` <br />
 Accept: `application/json` <br />
 Content-type: `application/json`
 - PUT `/tickets/{id´}` (Actualiza los datos del ticket).<br />
 Status code: 200 (éxito al actualizar un ticket) | 404 (no existe el ticket a actualizar) | 500 (error al actualizar el ticket) <br />
 Param id: {number} | ID del ticket <br />
-Body: {"title": "titulo", "user": "usuario", "description": "descripcion", "proyect": "proyecto"} <br />
+Body: `{"title": "titulo", "user": "usuario", "description": "descripcion", "proyect": "proyecto"}` <br />
 Accept: `application/json` <br />
 Content-type: `application/json`
 - PATCH `/tickets/{id}` (Actualiza el estado de un ticket).<br />
 Status code: 200 (éxito al actualizar el estado de un ticket) | 404 (no es posible cambiar al estado especificado) | 500 (error al actualizar el estado del ticket) <br />
 Param id: {number} | ID del ticket <br />
-Body: {"estado": "estado"} <br />
+Body: `{"estado": "estado"}` <br />
 Accept: `application/json` <br />
 Content-type: `application/json`
 - DELETE `/tickets/{id}` (Elimina un ticket).<br />
@@ -81,13 +81,13 @@ Accept: `application/json` <br />
 Content-type: `application/json`
 - POST `/proyects` (Crea un proyecto).<br />
 Status code: 201 (éxito al crear un proyecto) | 500 (error al crear el proyecto) <br />
-Body: {"name": "nombre"} <br />
+Body: `{"name": "nombre"}` <br />
 Accept: `application/json` <br />
 Content-type: `application/json`
 - PUT `/proyects/{id´}` (Actualiza los datos del proyecto).<br />
 Status code: 200 (éxito al actualizar un proyecto) | 404 (no existe el proyecto a actualizar) | 500 (error al actualizar el proyecto) <br />
 Param id: {number} | ID del proyecto <br />
-Body: {"name": "nombre"} <br />
+Body: `{"name": "nombre"}` <br />
 Accept: `application/json` <br />
 Content-type: `application/json`
 - DELETE `/proyects/{id}` (Elimina un proyecto).<br />
@@ -96,8 +96,8 @@ Param id: {number} | ID del proyecto <br />
 Accept: `application/json` <br />
 Content-type: `application/json`
 
-Estados (Statusses) <br />
-- GET `/statusses` (Obtener todos los estados posibles para los tickets).<br />
+Estados (Statuses) <br />
+- GET `/statuses` (Obtener todos los estados posibles para los tickets).<br />
 Status code: 200 (éxito al traer todos los estados) | 500 (error al traer todos los estados) <br />
 Accept: `application/json` <br />
 Content-type: `application/json`
