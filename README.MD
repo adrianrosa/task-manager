@@ -115,7 +115,7 @@ Content-type: `application/json`
 
 Lo que no podrá gestionar en esta versión será:
 
--   El alta, baja y modificación de estados. El sistema empezará con 4 estados básicos: en análisis, para hacer, en progreso, en QA, en revisión, terminado
+-   El alta, baja y modificación de estados. El sistema empezará con 6 estados básicos: en análisis, para hacer, en progreso, en QA, en revisión, terminado
     
 -   El alta, baja y modificación de usuarios y sus respectivos roles/permisos.
     
