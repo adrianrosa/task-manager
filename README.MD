@@ -1,7 +1,7 @@
 
 # Aplicación Administrador de Tareas
 
-## Descripción del alcance
+## Descripción del proyecto
 
 El propósito de este proyecto es la creación de una aplicación para administrar las tareas de un equipo de trabajo. 
 Para ello, el sistema estará compuesto de:
@@ -32,7 +32,24 @@ Las propiedades de cada una de ellas serán:
     
 -   Usuario: id, nombre, apellido, email
 
-## API endpoints
+### Limites del sistema
+
+  En esta primera versión, el usuario podrá gestionar:
+
+-   El alta, baja y modificación de tareas
+    
+-   Cambiar el estado de las tareas
+    
+-   El listado, alta, baja y modificación de proyectos
+    
+
+Lo que no podrá gestionar en esta versión será:
+
+-   El alta, baja y modificación de estados. El sistema empezará con 6 estados básicos: en análisis, para hacer, en progreso, en QA, en revisión, terminado
+    
+-   El alta, baja y modificación de usuarios y sus respectivos roles/permisos.
+
+## Documentación de la API
 
 Base URL: `http://localhost:3500/` <br /><br />
 
@@ -102,20 +119,4 @@ Status code: 200 (éxito al traer todos los estados) | 500 (error al traer todos
 Accept: `application/json` <br />
 Content-type: `application/json`
 
-### Limites del sistema
-
-  En esta primera versión, el usuario podrá gestionar:
-
--   El alta, baja y modificación de tareas
-    
--   Cambiar el estado de las tareas
-    
--   El listado, alta, baja y modificación de proyectos
-    
-
-Lo que no podrá gestionar en esta versión será:
-
--   El alta, baja y modificación de estados. El sistema empezará con 6 estados básicos: en análisis, para hacer, en progreso, en QA, en revisión, terminado
-    
--   El alta, baja y modificación de usuarios y sus respectivos roles/permisos.
-    
+## Configuración inicial
