@@ -27,7 +27,7 @@ app.all('/*', function(req, res, next) {
 });
 
 // Add routes
-app.use('/api/', routes);
+app.use(`/`, routes);
 
 // DB connection
 global.db = db;

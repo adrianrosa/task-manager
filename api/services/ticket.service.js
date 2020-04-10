@@ -37,6 +37,18 @@ const stateMachine = {
     }
 };
 
+const ticketToCreate = fieds => {
+    return {
+        title: fieds.title, 
+        number: null,
+        status: "in_analysis",
+        date_created: fieds.date_created,
+        user: JSON.parse(fieds.user),
+        proyect: JSON.parse(fieds.proyect),
+        description: fieds.description
+    };
+};
+
 const performTransition = (currentStatus, destinationStatus) => {
     let result = false;
     stateMachine[currentStatus].transitions_to.forEach(transitionStatus => {
@@ -49,3 +61,4 @@ const performTransition = (currentStatus, destinationStatus) => {
 };
 
 exports.performTransition = performTransition;
+exports.ticketToCreate = ticketToCreate;

@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const ticket = require('../models/ticket.model');
 const ticketService = require('../services/ticket.service');
 
@@ -21,7 +22,11 @@ exports.getOne = (req, res) => {
 };
 
 exports.create = (req, res) => {
-    const ticketToCreate = {title: req.body.title, number: null, string: req.body.string};
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({error: true, data: errors.array()});
+    }
+    const ticketToCreate = ticketService.ticketToCreate(req.body);
     ticket.create(ticketToCreate)
     .then(ticket => {
         ticketToCreate._id = ticket.insertedId;
