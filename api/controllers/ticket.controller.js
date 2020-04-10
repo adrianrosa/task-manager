@@ -36,11 +36,11 @@ exports.create = (req, res) => {
 };
 
 exports.change = function (req, res) {
-    const ticketToCreate = {title: req.body.title, string: req.body.string};
-    ticket.update(ticketToCreate, req.params.id)
+    const ticketToEdit = ticketService.ticketToEdit(req.body);
+    ticket.update(ticketToEdit, req.params.id)
     .then(ticket => {
-        ticketToCreate._id = ticket.insertedId;
-        res.status(200).json({error: false, data: ticketToCreate});
+        ticketToEdit._id = ticket.insertedId;
+        res.status(200).json({error: false, data: ticketToEdit});
     })
     .catch(err => res.status(500).json({error: true, data: err.message}));
 };

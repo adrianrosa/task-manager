@@ -17,13 +17,14 @@ router.get('/tickets/:id', ticketController.getOne);
 router.post('/tickets', [
     check('title').isString().isLength({min: 1}),
     check('date_created').isString().toDate(),
-    //check('user').isLength({min: 1}),
     check('user').isJSON(),
     check('description').isString().isLength({min: 1}),
     check('proyect').isJSON()
 ], ticketController.create);
 router.put('/tickets/:id', ticketController.change);
-router.patch('/tickets/:id', ticketController.updateStatus);
+router.patch('/tickets/:id', [
+    check('title').isString().isLength({min: 2})
+],ticketController.updateStatus);
 router.delete('/tickets/:id', ticketController.delete);
 
 module.exports = router;

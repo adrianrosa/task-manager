@@ -49,6 +49,23 @@ const ticketToCreate = fieds => {
     };
 };
 
+const ticketToEdit = fields => {
+    let result = {};
+    if (fields.hasOwnProperty("title")) {
+        result.title = fields.title;
+    }
+    if (fields.hasOwnProperty("user")) {
+        result.user = fields.user;
+    }
+    if (fields.hasOwnProperty("proyect")) {
+        result.proyect = fields.proyect;
+    }
+    if (fields.hasOwnProperty("description")) {
+        result.description = fields.description;
+    }
+    return result;
+};
+
 const performTransition = (currentStatus, destinationStatus) => {
     let result = false;
     stateMachine[currentStatus].transitions_to.forEach(transitionStatus => {
@@ -62,3 +79,4 @@ const performTransition = (currentStatus, destinationStatus) => {
 
 exports.performTransition = performTransition;
 exports.ticketToCreate = ticketToCreate;
+exports.ticketToEdit = ticketToEdit;
