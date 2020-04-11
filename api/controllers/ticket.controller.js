@@ -69,7 +69,7 @@ exports.delete = function (req, res) {
     ticket.delete(req.params.id)
     .then(ticketDeleted => {
         if (ticketDeleted.deletedCount === 0) {
-            res.status(404).json({error: true, data: `Record (ID: ${req.params.id}) was not found`});
+            return res.status(404).json({error: true, data: `Record (ID: ${req.params.id}) was not found`});
         }
         res.status(200).json({error: false, data: `${ticketDeleted.deletedCount} record (ID: ${req.params.id}) was deleted`});
     })
