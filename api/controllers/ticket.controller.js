@@ -14,7 +14,7 @@ exports.getOne = (req, res) => {
     ticket.getOne(req.params.id)
     .then(ticket => {
         if (!ticket) {
-            res.status(404).json({error: true, data: `Ticket ${req.params.id} not found`});
+            return res.status(404).json({error: true, data: `Ticket ${req.params.id} not found`});
         }
         res.status(200).json({error: false, data: ticket});
     })
@@ -46,14 +46,21 @@ exports.change = function (req, res) {
 };
 
 exports.updateStatus = function (req, res) {
-    if (!ticketService.performTransition(req.body.status, req.body.newStatus)) {
-        res.status(500).json({error: true, data: `Change status not allowed ${req.body.status} -> ${req.body.newStatus}`});
-    }
-    const ticketToUpdate = {status: req.body.newStatus};
-    ticket.update(ticketToUpdate, req.params.id)
-    .then(ticket => {
-        ticketToUpdate._id = ticket.insertedId;
-        res.status(200).json({error: false, data: ticketToUpdate});
+    ticket.getOne(req.params.id)
+    .then(ticketRecord => {
+        if (!ticketRecord) {
+            return res.status(404).json({error: true, data: `Ticket ${req.params.id} not found`});
+        }
+        if (!ticketService.performTransition(ticketRecord.status, req.body.new_status)) {
+            return res.status(500).json({error: true, data: `Change status not allowed ${ticketRecord.status} -> ${req.body.new_status}`});
+        }
+        const ticketToUpdate = {status: req.body.new_status};
+        ticket.update(ticketToUpdate, req.params.id)
+        .then(ticket => {
+            ticketToUpdate._id = ticket.insertedId;
+            res.status(200).json({error: false, data: ticketToUpdate});
+        })
+        .catch(err => res.status(500).json({error: true, data: err.message}));
     })
     .catch(err => res.status(500).json({error: true, data: err.message}));
 };
