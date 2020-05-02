@@ -53,261 +53,262 @@ Lo que no podrá gestionar en esta versión será:
 
 Base URL: `http://localhost:3500/` <br /><br />
 
-Tareas (Tickets) <br />
+<b>Tareas (Tickets)</b> <br />
 - <b>GET</b> `/tickets` <br />
 <i>Descripción</i>: obtener todos los tickets.<br />
 <i>Cabeceras</i>:
-```
-Accept: application/json
-Content-type: application/json
-```
-<i>Códigos de estado de respuesta</i>:
-```
-200: éxito al traer todos los tickets
-204: no hay tickets para mostrar
-```
+  ```
+  Accept: application/json
+  Content-type: application/json
+  ```
+  <i>Códigos de estado de respuesta</i>:
+  ```
+  200: éxito al traer todos los tickets
+  204: no hay tickets para mostrar
+  ```
 
 - <b>GET</b> `/tickets/{id}` <br />
 <i>Descripción</i>: obtener todos los atributos de ticket en específico.<br />
 <i>Parámetros</i>:
-```
-id: {number} | ID del ticket
-```
-<i>Cabeceras</i>:
-```
-Accept: application/json
-Content-type: application/json
-```
-<i>Códigos de estado de respuesta</i>:
-```
-200: éxito al traer un ticket
-404: no existe el ticket solicitado
-```
+  ```
+  id: {number} | ID del ticket
+  ```
+  <i>Cabeceras</i>:
+  ```
+  Accept: application/json
+  Content-type: application/json
+  ```
+  <i>Códigos de estado de respuesta</i>:
+  ```
+  200: éxito al traer un ticket
+  404: no existe el ticket solicitado
+  ```
 
-- GET `/tickets/proyect/{id}` <br />
+- <b>GET</b> `/tickets/proyect/{id}` <br />
 <i>Descripción</i>: obtener todos los tickets asociados a un proyecto.<br />
 <i>Parámetros</i>:
-```
-id: {number} | ID del proyecto
-```
-<i>Cabeceras</i>:
-```
-Accept: application/json
-Content-type: application/json
-```
-<i>Códigos de estado de respuesta</i>:
-```
-200: éxito al traer los tickets
-204: el proyecto existe pero no tiene ningún ticket asociado
-404: no existe el proyecto solicitado
-```
+  ```
+  id: {number} | ID del proyecto
+  ```
+  <i>Cabeceras</i>:
+  ```
+  Accept: application/json
+  Content-type: application/json
+  ```
+  <i>Códigos de estado de respuesta</i>:
+  ```
+  200: éxito al traer los tickets
+  204: el proyecto existe pero no tiene ningún ticket asociado
+  404: no existe el proyecto solicitado
+  ```
 
-- GET `/tickets/status/{id}` <br />
+- <b>GET</b> `/tickets/status/{id}` <br />
 <i>Descripción</i>: obtener todos los tickets que estén en un estado en específico.<br />
 <i>Parámetros</i>:
-```
-id: {number} | ID del estado
-```
-<i>Cabeceras</i>:
-```
-Accept: application/json
-Content-type: application/json
-```
-<i>Códigos de estado de respuesta</i>:
-```
-200: éxito al traer los tickets
-204: el estado existe, pero no hay ningún ticket asociado a dicho estado
-404: no existe el estado solicitado
-```
+  ```
+  id: {number} | ID del estado
+  ```
+  <i>Cabeceras</i>:
+  ```
+  Accept: application/json
+  Content-type: application/json
+  ```
+  <i>Códigos de estado de respuesta</i>:
+  ```
+  200: éxito al traer los tickets
+  204: el estado existe, pero no hay ningún ticket asociado a dicho estado
+  404: no existe el estado solicitado
+  ```
 
-- POST `/tickets` <br />
+- <b>POST</b> `/tickets` <br />
 <i>Descripción</i>: crea un ticket
 <i>Cabeceras</i>:
-```
-Accept: application/json
-Content-type: application/json
-```
-<i>Formato del body a enviar</i>: 
-```
-{"title": "titulo", "date_created": "unix_time", "user": "usuario", "description": "descripcion", "proyect": "proyecto"}
-```
-<i>Códigos de estado de respuesta</i>:
-```
-201: éxito al crear el ticket
-404: no existe el ticket solicitado
-422: no es posible crear el ticket debido a que le faltan datos o son incorrectos
-```
+  ```
+  Accept: application/json
+  Content-type: application/json
+  ```
+  <i>Formato del body a enviar</i>: 
+  ```
+  {"title": "titulo", "date_created": "unix_time", "user": "usuario", "description": "descripcion", "proyect": "proyecto"}
+  ```
+  <i>Códigos de estado de respuesta</i>:
+  ```
+  201: éxito al crear el ticket
+  404: no existe el ticket solicitado
+  422: no es posible crear el ticket debido a que le faltan datos o son incorrectos
+  ```
 
-- PUT `/tickets/{id}` <br />
+- <b>PUT</b> `/tickets/{id}` <br />
 <i>Descripción</i>: actualiza los atributos de un ticket.
 <i>Parámetros</i>:
-```
-id: {number} | ID del ticket a modificar
-```
-<i>Cabeceras</i>:
-```
-Accept: application/json
-Content-type: application/json
-```
-<i>Formato del body a enviar</i>: 
-```
-{"title": "titulo", "user": "usuario", "description": "descripcion", "proyect": "proyecto"}
-```
-<i>Códigos de estado de respuesta</i>:
-```
-200: éxito al actualizar el ticket
-404: no existe el ticket a actualizar
-```
+  ```
+  id: {number} | ID del ticket a modificar
+  ```
+  <i>Cabeceras</i>:
+  ```
+  Accept: application/json
+  Content-type: application/json
+  ```
+  <i>Formato del body a enviar</i>: 
+  ```
+  {"title": "titulo", "user": "usuario", "description": "descripcion", "proyect": "proyecto"}
+  ```
+  <i>Códigos de estado de respuesta</i>:
+  ```
+  200: éxito al actualizar el ticket
+  404: no existe el ticket a actualizar
+  ```
 
-- PATCH `/tickets/{id}` <br />
+- <b>PATCH</b> `/tickets/{id}` <br />
 <i>Descripción</i>: actualiza el estado de un ticket.
 <i>Parámetros</i>:
-```
-id: {number} | ID del ticket a modificar
-```
-<i>Cabeceras</i>:
-```
-Accept: application/json
-Content-type: application/json
-```
-<i>Formato del body a enviar</i>: 
-```
-{"estado": "estado"}
-```
-<i>Códigos de estado de respuesta</i>:
-```
-200: éxito al actualizar el ticket
-403: no es permitido el cambio de estado
-404: no existe el ticket
-```
+  ```
+  id: {number} | ID del ticket a modificar
+  ```
+  <i>Cabeceras</i>:
+  ```
+  Accept: application/json
+  Content-type: application/json
+  ```
+  <i>Formato del body a enviar</i>: 
+  ```
+  {"estado": "estado"}
+  ```
+  <i>Códigos de estado de respuesta</i>:
+  ```
+  200: éxito al actualizar el ticket
+  403: no es permitido el cambio de estado
+  404: no existe el ticket
+  ```
 
-- DELETE `/tickets/{id}` <br />
+- <b>DELETE</b> `/tickets/{id}` <br />
 <i>Descripción</b>: elimina un ticket.
 <i>Parámetros</i>:
-```
-id: {number} | ID del ticket a eliminar
-```
-<i>Cabeceras</i>:
-```
-Accept: application/json
-Content-type: application/json
-```
-<i>Códigos de estado de respuesta</i>:
-```
-200: éxito al eliminar el ticket
-404: no existe el ticket a eliminar
-```
+  ```
+  id: {number} | ID del ticket a eliminar
+  ```
+  <i>Cabeceras</i>:
+  ```
+  Accept: application/json
+  Content-type: application/json
+  ```
+  <i>Códigos de estado de respuesta</i>:
+  ```
+  200: éxito al eliminar el ticket
+  404: no existe el ticket a eliminar
+  ```
 
 <hr />
 
-Proyectos (Proyects) <br />
+<b>Proyectos (Proyects)</b> <br />
 
-- GET `/proyects` <br />
+- <b>GET</b> `/proyects` <br />
 <i>Descripción</i>: obtener todos los proyectos.
 <i>Cabeceras</i>:
-```
-Accept: application/json
-Content-type: application/json
-```
-<i>Códigos de estado de respuesta</i>:
-```
-200: éxito al traer todos los proyectos
-204: no hay proyectos para mostrar
-```
+  ```
+  Accept: application/json
+  Content-type: application/json
+  ```
+  <i>Códigos de estado de respuesta</i>:
+  ```
+  200: éxito al traer todos los proyectos
+  204: no hay proyectos para mostrar
+  ```
 
-- GET `/proyects/{id}` <br />
+- <b>GET</b> `/proyects/{id}` <br />
 <i>Descripción</i>: obtener todos los atributos de un proyecto.
 <i>Parámetros</i>:
-```
-id: {number} | ID del proyecto
-```
-<i>Cabeceras</i>:
-```
-Accept: application/json
-Content-type: application/json
-```
-<i>Códigos de estado de respuesta</i>:
-```
-200: éxito al traer un proyecto
-404: no existe el proyecto solicitado
-```
+  ```
+  id: {number} | ID del proyecto
+  ```
+  <i>Cabeceras</i>:
+  ```
+  Accept: application/json
+  Content-type: application/json
+  ```
+  <i>Códigos de estado de respuesta</i>:
+  ```
+  200: éxito al traer un proyecto
+  404: no existe el proyecto solicitado
+  ```
 
-- POST `/proyects` <br />
-<i>Descripción</i>: crea un proyecto.
-<i>Formato del body a enviar</i>: 
-```
-{"name": "nombre"}
-```
+- <b>POST</b> `/proyects` <br />
+<i>Descripción</i>: crea un proyecto.<br />
 <i>Cabeceras</i>:
-```
-Accept: application/json
-Content-type: application/json
-```
-<i>Códigos de estado de respuesta</i>:
-```
-201: éxito al crear un proyecto
-422: no es posible crear el proyecto debido a que le faltan datos o son incorrectos
-```
+  ```
+  Accept: application/json
+  Content-type: application/json
+  ```
+  <i>Formato del body a enviar</i>: 
+  ```
+  {"name": "nombre"}
+  ```
+  
+  <i>Códigos de estado de respuesta</i>:
+  ```
+  201: éxito al crear un proyecto
+  422: no es posible crear el proyecto debido a que le faltan datos o son incorrectos
+  ```
 
-- PUT `/proyects/{id}` <br />
-<i>Descripción</i>: actualizar los datos del proyecto.
+- <b>PUT</b> `/proyects/{id}` <br />
+<i>Descripción</i>: actualizar los datos del proyecto.<br />
 <i>Parámetros</i>:
-```
-id: {number} | ID del proyecto a modificar
-```
-<i>Formato del body a enviar</i>: 
-```
-{"name": "nombre"}
-```
-<i>Cabeceras</i>:
-```
-Accept: application/json
-Content-type: application/json
-```
-<i>Códigos de estado de respuesta</i>:
-```
-200: éxito al actualizar un proyecto
-404: no existe el proyecto a actualizar
-```
+  ```
+  id: {number} | ID del proyecto a modificar
+  ```
+  <i>Formato del body a enviar</i>: 
+  ```
+  {"name": "nombre"}
+  ```
+  <i>Cabeceras</i>:
+  ```
+  Accept: application/json
+  Content-type: application/json
+  ```
+  <i>Códigos de estado de respuesta</i>:
+  ```
+  200: éxito al actualizar un proyecto
+  404: no existe el proyecto a actualizar
+  ```
 
-- DELETE `/proyects/{id}` <br />
-<i>Descripción</i>: elimina un proyecto.
+- <b>DELETE</b> `/proyects/{id}` <br />
+<i>Descripción</i>: elimina un proyecto. <br />
 <i>Parámetros</i>:
-```
-id: {number} | ID del proyecto a eliminar
-```
-<i>Cabeceras</i>:
-```
-Accept: application/json
-Content-type: application/json
-```
-<i>Códigos de estado de respuesta</i>:
-```
-200: éxito al eliminar un proyecto
-403: no se puede borrar el proyecto porque tiene tickets asociados
-404: no existe el proyecto a eliminar
-```
+  ```
+  id: {number} | ID del proyecto a eliminar
+  ```
+  <i>Cabeceras</i>:
+  ```
+  Accept: application/json
+  Content-type: application/json
+  ```
+  <i>Códigos de estado de respuesta</i>:
+  ```
+  200: éxito al eliminar un proyecto
+  403: no se puede borrar el proyecto porque tiene tickets asociados
+  404: no existe el proyecto a eliminar
+  ```
 
 <hr />
 
-Estados (Statuses) <br />
+<b>Estados (Statuses)</b> <br />
 
-- GET `/statuses` <br />
+- <b>GET</b> `/statuses` <br />
 <i>Descripción</i>: obtener todos los estados posibles para los tickets.
 <i>Cabeceras</i>:
-```
-Accept: application/json
-Content-type: application/json
-```
-<i>Códigos de estado de respuesta</i>:
-```
-200: éxito al traer todos los estados
-204: no hay estados para mostrar
-```
+  ```
+  Accept: application/json
+  Content-type: application/json
+  ```
+  <i>Códigos de estado de respuesta</i>:
+  ```
+  200: éxito al traer todos los estados
+  204: no hay estados para mostrar
+  ```
 
 <hr />
 
-Códigos de respuesta para errores genéricos <br /> 
+<b>Códigos de respuesta para errores genéricos</b> <br /> 
 - Caída de la base de datos, error en tiempo de ejecución: 500 <br />
 - Entidad inexistente: 404 <br />
 - Verbo no implementado en una entidad: 405
