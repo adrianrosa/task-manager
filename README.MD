@@ -312,7 +312,6 @@ Base URL: `http://localhost:3500/` <br /><br />
 
 <b>Códigos de respuesta para errores genéricos</b> <br /> 
 - Caída de la base de datos, error en tiempo de ejecución: 500 <br />
-- Entidad inexistente: 404 <br />
-- Verbo no implementado en una entidad: 405
+- Entidad inexistente o verbo no implementado: 404
 
 ## Configuración inicial
