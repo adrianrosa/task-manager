@@ -28,6 +28,14 @@ const get = (entity, id) => {
     .catch(err => console.log(err));
 };
 
+const getByConditions = (entity, conditions) => {
+    return getClient()
+    .then(db => {
+        return db.collection(entity).find(conditions).toArray();
+    })
+    .catch(err => console.log(err));
+};
+
 const save = (entity, object, id) => {
     return getClient()
     .then(db => {
@@ -64,5 +72,6 @@ const drop = (entity, id) => {
 
 exports.init = init;
 exports.get = get;
+exports.getByConditions = getByConditions;
 exports.save = save;
 exports.drop = drop;

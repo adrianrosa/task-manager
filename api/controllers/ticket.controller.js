@@ -5,6 +5,9 @@ const ticketService = require('../services/ticket.service');
 exports.getAll = (req, res) => {
     ticket.getAll()
     .then(tickets => {
+        if (!tickets || tickets.length == 0) {
+            return res.status(204).json({error: false, data: `No tickets`});
+        }
         res.status(200).json({error: false, data: tickets});
     })
     .catch(err => res.status(500).json({error: true, data: err.message}));
@@ -17,6 +20,28 @@ exports.getOne = (req, res) => {
             return res.status(404).json({error: true, data: `Ticket ${req.params.id} not found`});
         }
         res.status(200).json({error: false, data: ticket});
+    })
+    .catch(err => res.status(500).json({error: true, data: err.message}));
+};
+
+exports.getByProject = (req, res) => {
+    ticket.getByProject(req.params.id)
+    .then(result => {
+        if (!result || result.length == 0) {
+            return res.status(204).json({error: false, data: `No tickets with project ID ${req.params.id}`});
+        }
+        return res.status(200).json({error: false, data: result});
+    })
+    .catch(err => res.status(500).json({error: true, data: err.message}));
+};
+
+exports.getByStatus = (req, res) => {
+    ticket.getByStatus(req.params.id)
+    .then(result => {
+        if (!result || result.length == 0) {
+            return res.status(204).json({error: false, data: `No tickets with status ID ${req.params.id}`});
+        }
+        return res.status(200).json({error: false, data: result});
     })
     .catch(err => res.status(500).json({error: true, data: err.message}));
 };
@@ -51,10 +76,10 @@ exports.updateStatus = function (req, res) {
         if (!ticketRecord) {
             return res.status(404).json({error: true, data: `Ticket ${req.params.id} not found`});
         }
-        if (!ticketService.performTransition(ticketRecord.status, req.body.new_status)) {
-            return res.status(500).json({error: true, data: `Change status not allowed ${ticketRecord.status} -> ${req.body.new_status}`});
+        if (!ticketService.performTransition(ticketRecord.status.name, req.body.new_status)) {
+            return res.status(403).json({error: true, data: `Change status not allowed ${ticketRecord.status} -> ${req.body.new_status}`});
         }
-        const ticketToUpdate = {status: req.body.new_status};
+        const ticketToUpdate = {status: {id: req.body.id_status, name: req.body.new_status}};
         ticket.update(ticketToUpdate, req.params.id)
         .then(ticket => {
             ticketToUpdate._id = ticket.insertedId;

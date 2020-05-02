@@ -1,5 +1,5 @@
 const express = require('express');
-const { check } = require('express-validator');
+const { check, body } = require('express-validator');
 const router = express.Router();
 const ticketController = require('./controllers/ticket.controller');
 
@@ -14,9 +14,16 @@ router.get('/', (req, res, next) => {
 /* Ticket routes */
 router.get('/tickets', ticketController.getAll);
 router.get('/tickets/:id', ticketController.getOne);
+router.get('/tickets/project/:id', ticketController.getByProject);
+router.get('/tickets/status/:id', ticketController.getByStatus);
 router.post('/tickets', [
     check('title').isString().isLength({min: 1}),
-    check('date_created').isString().toDate(),
+    body('date_created').custom((value, {req}) => {
+        if (value.match(/[0-9]{8,10}/)) {
+            return true;
+        }
+        throw new Error('date_created: format incorrect, timestamp expected');
+    }),
     check('user').isJSON(),
     check('description').isString().isLength({min: 1}),
     check('proyect').isJSON()

@@ -41,7 +41,7 @@ const ticketToCreate = fieds => {
     return {
         title: fieds.title, 
         number: null,
-        status: "in_analysis",
+        status: {id: 1, name: "in_analysis"},
         date_created: fieds.date_created,
         user: JSON.parse(fieds.user),
         proyect: JSON.parse(fieds.proyect),
