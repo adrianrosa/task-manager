@@ -53,6 +53,10 @@ Lo que no podrá gestionar en esta versión será:
 
 Base URL: `http://localhost:3500/` <br /><br />
 
+<b>Formato del body de respuesta</b>: `{error: boolean, data: object}` <br />
+- El atributo error indicará con un booleano si la petición fue exitosa o no. <br />
+- El atributo data contendrá los datos de respuesta en caso de éxito o una descripción del error si hay una falla.
+
 <b>Tareas (Tickets)</b> <br />
 - <b>GET</b> `/tickets` <br />
 <i>Descripción</i>: obtener todos los tickets.<br />
@@ -98,8 +102,7 @@ Base URL: `http://localhost:3500/` <br /><br />
   <i>Códigos de estado de respuesta</i>:
   ```
   200: éxito al traer los tickets
-  204: el proyecto existe pero no tiene ningún ticket asociado
-  404: no existe el proyecto solicitado
+  204: no hay ningún ticket asociado a dicho proyecto
   ```
 
 - <b>GET</b> `/tickets/status/{id}` <br />
@@ -116,8 +119,7 @@ Base URL: `http://localhost:3500/` <br /><br />
   <i>Códigos de estado de respuesta</i>:
   ```
   200: éxito al traer los tickets
-  204: el estado existe, pero no hay ningún ticket asociado a dicho estado
-  404: no existe el estado solicitado
+  204: no hay ningún ticket asociado a dicho estado
   ```
 
 - <b>POST</b> `/tickets` <br />
