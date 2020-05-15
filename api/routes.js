@@ -2,6 +2,7 @@ const express = require('express');
 const { check, body } = require('express-validator');
 const router = express.Router();
 const ticketController = require('./controllers/ticket.controller');
+const statusController = require('./controllers/status.controller');
 
 /* Index route */
 router.get('/', (req, res, next) => {
@@ -33,5 +34,8 @@ router.patch('/tickets/:id', [
     check('title').isString().isLength({min: 2})
 ],ticketController.updateStatus);
 router.delete('/tickets/:id', ticketController.delete);
+
+/* Status routes */
+router.get('/statuses', statusController.getAll);
 
 module.exports = router;
