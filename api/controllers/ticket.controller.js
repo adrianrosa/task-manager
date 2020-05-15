@@ -64,6 +64,9 @@ exports.change = function (req, res) {
     const ticketToEdit = ticketService.ticketToEdit(req.body);
     ticket.update(ticketToEdit, req.params.id)
     .then(ticket => {
+        if (!ticket) {
+            return res.status(404).json({error: true, data: `Ticket ${req.params.id} not found`});
+        }
         ticketToEdit._id = ticket.insertedId;
         res.status(200).json({error: false, data: ticketToEdit});
     })
