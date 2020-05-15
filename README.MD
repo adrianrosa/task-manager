@@ -26,7 +26,7 @@ Las propiedades de cada una de ellas serán:
 
 -   Tarea: id, numero, titulo, fecha_creacion, estado, usuario, descripcion, proyecto
     
--   Proyecto: id, nombre
+-   Proyecto: id, nombre, fecha_creacion, descripcion
     
 -   Estado: id, nombre
     
@@ -56,6 +56,9 @@ Base URL: `http://localhost:3500/` <br /><br />
 <b>Formato del body de respuesta</b>: `{error: boolean, data: object}` <br />
 - El atributo error indicará con un booleano si la petición fue exitosa o no. <br />
 - El atributo data contendrá los datos de respuesta en caso de éxito o una descripción del error si hay una falla.
+<br />
+
+Nota: todos los campos de tipo fecha (por ejemplo, `date_created`) deben enviarse en formato <a href="https://en.wikipedia.org/wiki/Unix_time" target="_blank">unix time</a>.
 
 <b>Tareas (Tickets)</b> <br />
 - <b>GET</b> `/tickets` <br />
@@ -202,9 +205,9 @@ Base URL: `http://localhost:3500/` <br /><br />
 
 <hr />
 
-<b>Proyectos (Proyects)</b> <br />
+<b>Proyectos (Projects)</b> <br />
 
-- <b>GET</b> `/proyects` <br />
+- <b>GET</b> `/projects` <br />
 <i>Descripción</i>: obtener todos los proyectos.
 <i>Cabeceras</i>:
   ```
@@ -217,7 +220,7 @@ Base URL: `http://localhost:3500/` <br /><br />
   204: no hay proyectos para mostrar
   ```
 
-- <b>GET</b> `/proyects/{id}` <br />
+- <b>GET</b> `/projects/{id}` <br />
 <i>Descripción</i>: obtener todos los atributos de un proyecto.
 <i>Parámetros</i>:
   ```
@@ -234,7 +237,7 @@ Base URL: `http://localhost:3500/` <br /><br />
   404: no existe el proyecto solicitado
   ```
 
-- <b>POST</b> `/proyects` <br />
+- <b>POST</b> `/projects` <br />
 <i>Descripción</i>: crea un proyecto.<br />
 <i>Cabeceras</i>:
   ```
@@ -243,7 +246,7 @@ Base URL: `http://localhost:3500/` <br /><br />
   ```
   <i>Formato del body a enviar</i>: 
   ```
-  {"name": "nombre"}
+  {"name": "nombre", "description": "descripción", "date_created": "unix_time"}
   ```
   
   <i>Códigos de estado de respuesta</i>:
@@ -252,7 +255,7 @@ Base URL: `http://localhost:3500/` <br /><br />
   422: no es posible crear el proyecto debido a que le faltan datos o son incorrectos
   ```
 
-- <b>PUT</b> `/proyects/{id}` <br />
+- <b>PUT</b> `/projects/{id}` <br />
 <i>Descripción</i>: actualizar los datos del proyecto.<br />
 <i>Parámetros</i>:
   ```
@@ -260,7 +263,7 @@ Base URL: `http://localhost:3500/` <br /><br />
   ```
   <i>Formato del body a enviar</i>: 
   ```
-  {"name": "nombre"}
+  {"name": "nombre", "description": "descripción"}
   ```
   <i>Cabeceras</i>:
   ```
@@ -273,7 +276,7 @@ Base URL: `http://localhost:3500/` <br /><br />
   404: no existe el proyecto a actualizar
   ```
 
-- <b>DELETE</b> `/proyects/{id}` <br />
+- <b>DELETE</b> `/projects/{id}` <br />
 <i>Descripción</i>: elimina un proyecto. <br />
 <i>Parámetros</i>:
   ```
