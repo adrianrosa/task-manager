@@ -4,7 +4,7 @@ import {
     Switch,
     Route
 } from 'react-router-dom';
-import App from './components/App/App';
+import Home from './components/Home/Home';
 import ProjectContainer from './components/projectContainer';
 
 function Routes() {
@@ -12,7 +12,7 @@ function Routes() {
         <Router>
             <Switch>
                 <Route exact path="/">
-                    <App />
+                    <Home />
                 </Route>
                 <Route exact path="/projects">
                     <ProjectContainer />

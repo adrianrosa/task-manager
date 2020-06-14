@@ -29,12 +29,12 @@ class Project extends React.Component {
                         { this.state.isLoading && (<Preloader />)}
                     </Col>
                     <Col s={12}>
-                        <h1 className="title-page"><Icon medium left>business_center</Icon>Projects</h1>
+                        <h1 className="title-page"><Icon medium left>business_center</Icon>Projects<Icon medium right>business_center</Icon></h1>
                         <Row>
                             { this.state.projects.map((project, index) => (
-                                <Col s={4} key={index} >
+                                <Col s={12} l={6} m={6} key={index} >
                                     <Card title={project.name} className="card-block"
-                                        actions={[<a key="1" href={"/project/" + project.id }>Entrar</a>]}>
+                                        actions={[<a key="1" href={"/project/" + project._id }>Entrar</a>]}>
                                         {project.description}
                                     </Card>
                                 </Col>
