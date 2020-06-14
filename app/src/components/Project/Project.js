@@ -1,4 +1,6 @@
 import React from 'react';
+import App from '../App/App';
+import { Row, Col, Preloader, Icon, Card } from 'react-materialize';
 
 class Project extends React.Component {
     constructor(props) {
@@ -21,13 +23,26 @@ class Project extends React.Component {
     }
     render() {
         return (
-            <div className="App">
-            <header className="App-header">
-                { this.state.projects.map(project => (
-                    <p key={project.name}>{project.name}</p>
-                )) }             
-            </header>
-            </div>
+            <App>
+                <Row id="projects-page">
+                    <Col s={12} className="grid-center">
+                        { this.state.isLoading && (<Preloader />)}
+                    </Col>
+                    <Col s={12}>
+                        <h1 className="title-page"><Icon medium left>business_center</Icon>Projects</h1>
+                        <Row>
+                            { this.state.projects.map((project, index) => (
+                                <Col s={4} key={index} >
+                                    <Card title={project.name} className="card-block"
+                                        actions={[<a key="1" href={"/project/" + project.id }>Entrar</a>]}>
+                                        {project.description}
+                                    </Card>
+                                </Col>
+                            )) }
+                        </Row>
+                    </Col>
+                </Row>       
+            </App>
         ); 
     }
 }
