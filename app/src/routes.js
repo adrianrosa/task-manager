@@ -4,7 +4,7 @@ import {
     Switch,
     Route
 } from 'react-router-dom';
-import App from './App';
+import App from './components/App/App';
 import ProjectContainer from './components/projectContainer';
 
 function Routes() {
