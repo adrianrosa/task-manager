@@ -28,7 +28,7 @@ router.post('/tickets', [
     }),
     check('user').isJSON(),
     check('description').isString().isLength({min: 1}),
-    check('proyect').isJSON()
+    check('project').isJSON()
 ], ticketController.create);
 router.put('/tickets/:id', ticketController.change);
 router.patch('/tickets/:id', [

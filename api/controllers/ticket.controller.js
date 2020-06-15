@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const ticket = require('../models/ticket.model');
 const ticketService = require('../services/ticket.service');
+const statusService = require('../services/status.service');
 
 exports.getAll = (req, res) => {
     ticket.getAll()
@@ -46,12 +47,12 @@ exports.getByStatus = (req, res) => {
     .catch(err => res.status(500).json({error: true, data: err.message}));
 };
 
-exports.create = (req, res) => {
+exports.create = async(req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({error: true, data: errors.array()});
     }
-    const ticketToCreate = ticketService.ticketToCreate(req.body);
+    const ticketToCreate = await ticketService.ticketToCreate(req.body);
     ticket.create(ticketToCreate)
     .then(ticket => {
         ticketToCreate._id = ticket.insertedId;
@@ -73,16 +74,17 @@ exports.change = function (req, res) {
     .catch(err => res.status(500).json({error: true, data: err.message}));
 };
 
-exports.updateStatus = function (req, res) {
+exports.updateStatus = async(req, res) => {
     ticket.getOne(req.params.id)
-    .then(ticketRecord => {
+    .then(async (ticketRecord) => {
         if (!ticketRecord) {
             return res.status(404).json({error: true, data: `Ticket ${req.params.id} not found`});
         }
         if (!ticketService.performTransition(ticketRecord.status.name, req.body.new_status)) {
-            return res.status(403).json({error: true, data: `Change status not allowed ${ticketRecord.status} -> ${req.body.new_status}`});
+            return res.status(403).json({error: true, data: `Change status not allowed ${ticketRecord.status.name} -> ${req.body.new_status}`});
         }
-        const ticketToUpdate = {status: {id: req.body.id_status, name: req.body.new_status}};
+        const statusObject = await statusService.getStatusByName(req.body.new_status);
+        const ticketToUpdate = {status: {id: statusObject._id, name: statusObject.name}};
         ticket.update(ticketToUpdate, req.params.id)
         .then(ticket => {
             ticketToUpdate._id = ticket.insertedId;

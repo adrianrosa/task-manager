@@ -1,3 +1,6 @@
+let ObjectID = require('mongodb').ObjectID;
+const statusService = require('./status.service');
+
 const stateMachine = {
     in_analysis:{
         transitions_to: [
@@ -37,16 +40,21 @@ const stateMachine = {
     }
 };
 
-const ticketToCreate = fieds => {
-    return {
-        title: fieds.title, 
-        number: null,
-        status: {id: 1, name: "in_analysis"},
-        date_created: fieds.date_created,
-        user: JSON.parse(fieds.user),
-        proyect: JSON.parse(fieds.proyect),
-        description: fieds.description
-    };
+const ticketToCreate = async(fieds) => {
+    let project = JSON.parse(fieds.project);
+    project.id = ObjectID(project.id);
+    return statusService.getStatusByName("in_analysis")
+        .then(status => {
+            return {
+                title: fieds.title,
+                number: null,
+                status: status,
+                date_created: fieds.date_created,
+                user: JSON.parse(fieds.user),
+                project: project,
+                description: fieds.description
+            };
+        });
 };
 
 const ticketToEdit = fields => {
@@ -57,8 +65,9 @@ const ticketToEdit = fields => {
     if (fields.hasOwnProperty("user")) {
         result.user = fields.user;
     }
-    if (fields.hasOwnProperty("proyect")) {
-        result.proyect = fields.proyect;
+    if (fields.hasOwnProperty("project")) {
+        fields.project.id = ObjectID(fields.project.id);
+        result.project = fields.project;
     }
     if (fields.hasOwnProperty("description")) {
         result.description = fields.description;
