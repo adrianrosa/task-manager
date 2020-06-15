@@ -1,8 +1,8 @@
 import React from 'react';
 import App from '../App/App';
-import { Row, Col, Preloader, Icon, Card } from 'react-materialize';
+import { Row, Col, Preloader, Card, Button } from 'react-materialize';
 
-class Project extends React.Component {
+class ProjectList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -29,12 +29,15 @@ class Project extends React.Component {
                         { this.state.isLoading && (<Preloader />)}
                     </Col>
                     <Col s={12}>
-                        <h1 className="title-page"><Icon medium left>business_center</Icon>Projects<Icon medium right>business_center</Icon></h1>
+                        <Button href="/projects/new" node="a">Nuevo</Button>
+                        <h1 className="title-page-inline">Proyectos</h1>
+                    </Col>
+                    <Col s={12} className={"divider-app"}>
                         <Row>
                             { this.state.projects.map((project, index) => (
                                 <Col s={12} l={6} m={6} key={index} >
                                     <Card title={project.name} className="card-block"
-                                        actions={[<a key="1" href={"/project/" + project._id }>Entrar</a>]}>
+                                        actions={[<a key="1" href={"/projects/" + project._id + "/board" }>Entrar</a>]}>
                                         {project.description}
                                     </Card>
                                 </Col>
@@ -47,4 +50,4 @@ class Project extends React.Component {
     }
 }
 
-export default Project;
+export default ProjectList;

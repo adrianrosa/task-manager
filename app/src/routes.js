@@ -5,7 +5,8 @@ import {
     Route
 } from 'react-router-dom';
 import Home from './components/Home/Home';
-import ProjectContainer from './components/projectContainer';
+import ProjectListContainer from './components/projectListContainer';
+import BoardContainer from './components/boardContainer';
 
 function Routes() {
     return (
@@ -15,7 +16,10 @@ function Routes() {
                     <Home />
                 </Route>
                 <Route exact path="/projects">
-                    <ProjectContainer />
+                    <ProjectListContainer />
+                </Route>
+                <Route exact path="/projects/:id/board">
+                    <BoardContainer />
                 </Route>
             </Switch>
         </Router>
