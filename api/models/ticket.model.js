@@ -1,4 +1,5 @@
 const entityName = 'tickets';
+let ObjectID = require('mongodb').ObjectID;
 
 exports.getAll = () => {
     return db.get(entityName).then(result => result);
@@ -9,12 +10,12 @@ exports.getOne = (id) => {
 };
 
 exports.getByProject = (projectId) => {
-    let conditions = { "project.id": parseInt(projectId) };
+    let conditions = { "project.id": ObjectID(projectId) };
     return db.getByConditions(entityName, conditions).then(result => result);
 };
 
 exports.getByStatus = (statusId) => {
-    let conditions = { "status.id": parseInt(statusId) };
+    let conditions = { "status.id": ObjectID(statusId) };
     return db.getByConditions(entityName, conditions).then(result => result);
 };
 
