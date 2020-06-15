@@ -23,7 +23,7 @@ class ProjectList extends React.Component {
     }
     render() {
         return (
-            <App>
+            <App container={true}>
                 <Row id="projects-page">
                     <Col s={12} className="grid-center">
                         { this.state.isLoading && (<Preloader />)}

@@ -9,9 +9,11 @@ function App(props) {
     <React.Fragment>
       <Menu />
       <main>
+        {props.container && (
         <Container className="container-app">
           {props.children}
-        </Container>
+        </Container>)}
+        {!props.container && props.children}
       </main>
       <Footer />
     </React.Fragment>

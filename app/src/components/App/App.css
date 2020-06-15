@@ -13,8 +13,9 @@ body #root {
 }
 
 .title-page {
-  font-size: 3em;
+  font-size: 2.5em;
   text-align: center;
+  padding-left: 30px;
 }
 
 .title-page-inline {
@@ -36,6 +37,7 @@ body #root {
 
 .divider-app {
   margin-top: 15px;
+  margin-bottom: 10px;
 }
 
 #root .btn {
@@ -51,16 +53,50 @@ body #root {
   padding: 15px;
 }
 
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .card-block {
   background-color: #3864C9;
   color: #fff;
 }
 
+#board-page h2 {
+  font-size: 1.1em;
+  text-align: center;
+  font-weight: bold;
+}
+
 #projects-page .card-block .card-action a {
   color: #fff;
-} 
+}
 
-#projects-page .card-block .card-action a:hover {
+#board-page .card .card-content .card-title {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#board-page .card .card-content div {
+  font-size: 13px;
+}
+
+#board-page .card .card-action {
+  background-color: #3864C9;
+}
+
+#board-page .card .card-action a {
+  color: #080E78;
+}
+
+#board-page .card .card-action span.number {
+  color: #000;
+  font-weight: bold;
+}
+
+#projects-page .card-block .card-action a:hover,
+#board-page .card .card-action a:hover {
   color: #ffab40;
 }
 
