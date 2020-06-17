@@ -41,14 +41,18 @@ body #root {
 }
 
 #root .btn {
-  background-color: #080E78;
+  background-color: #3864C9;
+}
+
+#ticket-form .btn {
+  background-color: #3864C9;
+  margin-left: 20px;
 }
 
 .container-app {
-  border: 1px solid #eceaea;
-  box-shadow: 5px 6px #eceaea;
+  border: 1px solid #F4F5F7;
   border-radius: 4px;
-  background-color: #fffef3;
+  background-color: #F4F5F7;
   margin-top: 20px;
   padding: 15px;
 }
@@ -63,10 +67,29 @@ body #root {
   color: #fff;
 }
 
+#board-page .column-status-group {
+  margin-top: 15px;
+  margin-bottom: 25px;
+  padding-top: 10px;
+}
+
 #board-page h2 {
   font-size: 1.1em;
   text-align: center;
   font-weight: bold;
+  display: inline;
+}
+
+#board-page .counter {
+  float: right;
+  font-weight: bold;
+  background-color: #3864C9;
+  color: #fff;
+  padding: 5px;
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  text-align: center;
 }
 
 #projects-page .card-block .card-action a {
