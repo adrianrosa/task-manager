@@ -1,4 +1,5 @@
-import { FETCHING_TICKETS_BY_PROJECT, FETCH_TICKETS_BY_PROJECT_SUCCESS, FETCH_TICKETS_BY_PROJECT_FAILURE } from '../constants';
+import { FETCHING_TICKETS_BY_PROJECT, FETCH_TICKETS_BY_PROJECT_SUCCESS, FETCH_TICKETS_BY_PROJECT_FAILURE,
+         DELETING_TICKET, DELETE_TICKET_SUCCESS, DELETE_TICKET_FAILURE } from '../constants';
 
 const initialState = {
     tickets: [],
@@ -27,6 +28,21 @@ const ticketReducer = (state = initialState, action) => {
                 tickets: [],
                 isLoading: false,
                 error: action.data
+            }
+        case DELETING_TICKET:
+            return state;
+        case DELETE_TICKET_SUCCESS:
+            return {
+                ...state,
+                tickets: state.tickets.filter(ticket => ticket._id !== action.ticketId),
+                isLoading: false,
+                error: null
+            }
+        case DELETE_TICKET_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
             }
         default:
             return state;

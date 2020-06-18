@@ -53,6 +53,12 @@ body #root {
 #ticket-modal .btn-flat {
   float: right;
 }
+
+#ticket-modal .btn-delete {
+  background-color: red;
+  float: right;
+}
+
 .modal-content-form {
   margin-top: 30px;
 }
