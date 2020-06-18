@@ -47,7 +47,7 @@ function Menu() {
             trigger={<a href="#!">MI CUENTA{' '}<Icon right>arrow_drop_down</Icon></a>}
             >
             <a href="/account">
-                <Icon>account_circle</Icon>MIS DATOS
+                <Icon>account_circle</Icon>ADRIAN ROSA
             </a>
             <a href="/logout">
                 <Icon>power_settings_new</Icon> SALIR

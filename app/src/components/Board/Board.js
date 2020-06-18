@@ -60,7 +60,6 @@ class Board extends React.Component {
     }
     openForm(e, ticket) {
         e.preventDefault();
-        console.log(ticket)
         this.setState((prevState, props) => ({
             ...prevState,
             showForm: true,
@@ -76,7 +75,7 @@ class Board extends React.Component {
                         { this.state.isLoading && (<Preloader />)}
                     </Col>
                     <Col s={12} m={12} l={12}>
-                        <TicketForm show={this.state.showForm} projectId={this.props.projectId} ticket={this.state.ticketToEdit} />
+                        <TicketForm show={this.state.showForm} projectId={this.props.projectId} statuses={this.props.statuses} ticket={this.state.ticketToEdit} />
                     </Col>
                     {this.state.statuses && (this.state.statuses.map(status => 
                     <Col key={status._id} s={12} m={4} l={2} className="container-app column-stattus">

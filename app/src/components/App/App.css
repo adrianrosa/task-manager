@@ -40,13 +40,21 @@ body #root {
   margin-bottom: 10px;
 }
 
-#root .btn {
+#root .btn,
+#ticket-modal .btn {
   background-color: #3864C9;
 }
 
 #ticket-form .btn {
   background-color: #3864C9;
   margin-left: 20px;
+}
+
+#ticket-modal .btn-flat {
+  float: right;
+}
+.modal-content-form {
+  margin-top: 30px;
 }
 
 .container-app {
