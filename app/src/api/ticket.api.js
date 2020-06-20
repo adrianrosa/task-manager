@@ -19,3 +19,14 @@ export const deleteTicket = id => {
             return response.json();
         });
 }
+
+export const createTicket = ticket => {
+    const url = `${process.env.REACT_APP_TASK_MANAGER_API}/tickets`;
+    return fetch(url, {method: 'POST', body: JSON.stringify(ticket), headers:{'Content-Type': 'application/json'}})
+        .then(response => {
+            if (!response.ok) {
+                return new Error(`Error to create ticket ${ticket}`);
+            }
+            return response.json();
+        });
+}

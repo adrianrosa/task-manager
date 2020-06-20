@@ -16,6 +16,7 @@ class Board extends React.Component {
             ticketToEdit: {}
         }
         this.openForm = this.openForm.bind(this);
+        this.addTicket = this.addTicket.bind(this);
         this.deleteTicket = this.deleteTicket.bind(this);
     }
     async componentDidMount() {
@@ -38,6 +39,12 @@ class Board extends React.Component {
             isLoading: props.isLoading
         }));
         this.updateTicketCounters();
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState((prevState, props) => ({
+            ...prevState,
+            tickets: nextProps.tickets
+        }));
     }
     updateTicketCounters() {
         let counters = {};
@@ -67,9 +74,24 @@ class Board extends React.Component {
             ticketToEdit: ticket
         }));
     }
+    async addTicket(ticket) {
+        //console.log(ticket)
+        if (ticket.title) {
+            await this.props.addTicket(ticket);
+            this.setState((prevState, props) => {
+                return {
+                    ...prevState,
+                    tickets: props.tickets,
+                    showForm: false,
+                    ticketCounterStatus: {
+                        ...prevState.ticketCounterStatus,
+                        [ticket.status.name.toLowerCase()]: prevState.ticketCounterStatus[ticket.status.name.toLowerCase()] + 1
+                    }
+                }
+            });
+        }
+    }
     async deleteTicket(ticket) {
-        console
-        .log(ticket)
         await this.props.deleteTicketById(ticket._id)
         this.setState((prevState, props) => {
             return {
@@ -93,9 +115,10 @@ class Board extends React.Component {
                     </Col>
                     <Col s={12} m={12} l={12}>
                         <TicketForm show={this.state.showForm}
-                                    projectId={this.props.projectId}
+                                    project={this.props.project}
                                     statuses={this.props.statuses}
                                     ticket={this.state.ticketToEdit}
+                                    handleCreate={this.addTicket}
                                     handleDelete={this.deleteTicket} />
                     </Col>
                     {this.state.statuses && (this.state.statuses.map(status => 
@@ -105,12 +128,12 @@ class Board extends React.Component {
                             <span className="counter">{this.state.ticketCounterStatus[status.name]}</span>   
                         </div>
                         <hr />
-                        {this.state.tickets && this.state.tickets.map(ticket => {
+                        {this.state.tickets.length > 0 && this.state.tickets.map(ticket => {
                             return ticket.status.name === status.name && (
                                 <Card key={ticket._id}
                                     title={ticket.title.length >= 40 ? ticket.title.substring(0, 40) + " ..." : ticket.title}
                                     actions={[
-                                        <a key="1" href="/" onClick={e => this.openForm(e, ticket)}>Ver más</a>,
+                                        <a key="1" href="/" onClick={e => this.openForm(e, ticket)}>Editar</a>,
                                         <span key="2" className="number"># {ticket.number}</span>
                                     ]}>
                                     <hr className={"divider-app"} />

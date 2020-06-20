@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { getStatuses } from '../actions/status.action';
-import { getTicketsByProjectId, deleteTicketById } from '../actions/ticket.action';
+import { getTicketsByProjectId, addTicket, deleteTicketById } from '../actions/ticket.action';
 import { getProjectById } from '../actions/project.action';
 import { withRouter } from 'react-router-dom';
 import Board from './Board/Board.js';
@@ -11,6 +11,7 @@ const mapStateToProps = (state, ownProps) => {
         statuses: state.statusReducer.statuses || [],
         isLoading: state.statusReducer.isLoading || state.ticketReducer.isLoading || false,
         tickets: state.ticketReducer.tickets || null,
+        ticket: state.ticketReducer.ticket || null,
         project: state.projectReducer.project || null,
     }
 }
@@ -25,6 +26,9 @@ const mapDispatchToProps = dispatch => {
         },
         getTicketsByProjectId: projectId => {
             return dispatch(getTicketsByProjectId(projectId));
+        },
+        addTicket: ticket => {
+            return dispatch(addTicket(ticket));
         },
         deleteTicketById: id => {
             return dispatch(deleteTicketById(id));
