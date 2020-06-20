@@ -63,6 +63,7 @@ const ticketToEdit = fields => {
         result.title = fields.title;
     }
     if (fields.hasOwnProperty("user")) {
+        //fields.user._id = ObjectID(fields.user._id);
         result.user = fields.user;
     }
     if (fields.hasOwnProperty("project")) {
@@ -71,6 +72,14 @@ const ticketToEdit = fields => {
     }
     if (fields.hasOwnProperty("description")) {
         result.description = fields.description;
+    }
+    if (fields.hasOwnProperty("number")) {
+        result.number = fields.number;
+    }
+    if (fields.hasOwnProperty("status")) {
+        fields.status._id = ObjectID(fields.status._id);
+        result.status = fields.status;
+        result.status.name.toLowerCase();
     }
     return result;
 };
