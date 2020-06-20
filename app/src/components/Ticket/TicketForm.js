@@ -18,7 +18,6 @@ class TicketForm extends React.Component {
         this.handleChangeInput = this.handleChangeInput.bind(this);
         this.handleChangeStatusSelect = this.handleChangeStatusSelect.bind(this);
         this.handleChangeUserSelect = this.handleChangeUserSelect.bind(this);
-        //this.close = this.close.bind(this);
     }
     componentWillReceiveProps(nextProps) {
         this.setState((prevState, props) => ({
@@ -46,14 +45,27 @@ class TicketForm extends React.Component {
     }
     submit(e) {
         e.preventDefault();
-        this.props.handleCreate({
-            title: this.state.title,
-            description: this.state.description,
-            date_created: this.convertDateToTimestamp(this.state.date_created),
-            user: this.state.user,
-            project: this.state.project,
-            status: this.state.status
-        });
+        if (Object.entries(this.props.ticket).length === 0) {
+            this.props.handleCreate({
+                title: this.state.title,
+                description: this.state.description,
+                date_created: this.convertDateToTimestamp(this.state.date_created),
+                user: this.state.user,
+                project: this.state.project,
+                status: this.state.status
+            });
+        } else if (Object.entries(this.props.ticket).length > 0) {
+            this.props.handleUpdate({
+                _id: this.props.ticket._id,
+                title: this.state.title,
+                description: this.state.description,
+                number: this.state.number,
+                date_created: this.convertDateToTimestamp(this.state.date_created),
+                user: this.state.user,
+                project: this.state.project,
+                status: this.state.status
+            });
+        }
     }
     handleChangeInput(e, key) {
         const value = e.target.value;
@@ -91,7 +103,6 @@ class TicketForm extends React.Component {
             title: "",
             description:"",
             user: {},
-            //date_created: null,
             status: null,
             project: {},
             ticket: {}
@@ -144,7 +155,7 @@ class TicketForm extends React.Component {
                     <Button node="button" type="submit" waves="light" modal="close">
                         Guardar<Icon right>send</Icon>
                     </Button>
-                    {this.props.ticket._id && <Button className="btn-delete" onClick={() => this.delete(this.props.ticket)} node="button" waves="green">Borrar <Icon right>delete</Icon></Button>}
+                    {this.props.ticket.title && <Button className="btn-delete" onClick={() => this.delete(this.props.ticket)} node="button" waves="green">Borrar <Icon right>delete</Icon></Button>}
                 </form>
             </Modal>
         )

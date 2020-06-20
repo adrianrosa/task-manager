@@ -18,6 +18,7 @@ class Board extends React.Component {
         this.openForm = this.openForm.bind(this);
         this.addTicket = this.addTicket.bind(this);
         this.deleteTicket = this.deleteTicket.bind(this);
+        this.update = this.update.bind(this);
     }
     async componentDidMount() {
         await this.props.getProjectById(this.props.projectId);
@@ -75,7 +76,6 @@ class Board extends React.Component {
         }));
     }
     async addTicket(ticket) {
-        //console.log(ticket)
         if (ticket.title) {
             await this.props.addTicket(ticket);
             this.setState((prevState, props) => {
@@ -83,6 +83,7 @@ class Board extends React.Component {
                     ...prevState,
                     tickets: props.tickets,
                     showForm: false,
+                    ticketToEdit: {},
                     ticketCounterStatus: {
                         ...prevState.ticketCounterStatus,
                         [ticket.status.name.toLowerCase()]: prevState.ticketCounterStatus[ticket.status.name.toLowerCase()] + 1
@@ -91,12 +92,25 @@ class Board extends React.Component {
             });
         }
     }
+    async update(ticket) {
+        await this.props.modifyTicket(ticket);
+        this.setState((prevState, props) => {
+            //console.log(props)
+            return {
+                ...prevState,
+                tickets: props.tickets,
+                showForm: false,
+                //ticketToEdit: {}
+            }
+        });
+    }
     async deleteTicket(ticket) {
         await this.props.deleteTicketById(ticket._id)
         this.setState((prevState, props) => {
             return {
                 ...prevState,
                 tickets: props.tickets,
+                ticketToEdit: {},
                 showForm: false,
                 ticketCounterStatus: {
                     ...prevState.ticketCounterStatus,
@@ -119,6 +133,7 @@ class Board extends React.Component {
                                     statuses={this.props.statuses}
                                     ticket={this.state.ticketToEdit}
                                     handleCreate={this.addTicket}
+                                    handleUpdate={this.update}
                                     handleDelete={this.deleteTicket} />
                     </Col>
                     {this.state.statuses && (this.state.statuses.map(status => 
@@ -129,7 +144,7 @@ class Board extends React.Component {
                         </div>
                         <hr />
                         {this.state.tickets.length > 0 && this.state.tickets.map(ticket => {
-                            return ticket.status.name === status.name && (
+                            return ticket.status.name.toLowerCase() === status.name.toLowerCase() && (
                                 <Card key={ticket._id}
                                     title={ticket.title.length >= 40 ? ticket.title.substring(0, 40) + " ..." : ticket.title}
                                     actions={[

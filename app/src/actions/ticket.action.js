@@ -1,8 +1,9 @@
 import { FETCHING_TICKETS_BY_PROJECT, FETCH_TICKETS_BY_PROJECT_SUCCESS, FETCH_TICKETS_BY_PROJECT_FAILURE,
          CREATING_TICKET, CREATE_TICKET_SUCCESS, CREATE_TICKET_FAILURE,
+         UPDATING_TICKET, UPDATE_TICKET_SUCCESS, UPDATE_TICKET_FAILURE,
          DELETING_TICKET, DELETE_TICKET_FAILURE, DELETE_TICKET_SUCCESS } from '../constants';
 
-import { getAllByProjectId, createTicket , deleteTicket } from '../api/ticket.api';
+import { getAllByProjectId, createTicket , deleteTicket, updateTicket } from '../api/ticket.api';
 
 export const fetchingTickets = () => ({ type: FETCHING_TICKETS_BY_PROJECT })
 
@@ -15,6 +16,12 @@ export const creatingTicket = () => ({ type: CREATING_TICKET })
 export const createTicketSuccess = ticket => ({type: CREATE_TICKET_SUCCESS, ticket})
 
 export const createTicketFailure = error => ({ type: CREATE_TICKET_FAILURE, error })
+
+export const updatingTicket = () => ({ type: UPDATING_TICKET })
+
+export const updateTicketSuccess = ticket => ({type: UPDATE_TICKET_SUCCESS, ticket})
+
+export const updateTicketFailure = error => ({ type: UPDATE_TICKET_FAILURE, error })
 
 export const deletingTicket = () => ({ type: DELETING_TICKET })
 
@@ -41,6 +48,17 @@ export const addTicket = ticket => {
                 dispatch(createTicketSuccess(response.data));
             })
             .catch(error => dispatch(createTicketFailure(error)));
+    }
+}
+
+export const modifyTicket = ticket => {
+    return dispatch => {
+        dispatch(updatingTicket());
+        return updateTicket(ticket)
+            .then(response => {
+                dispatch(updateTicketSuccess(response.data));
+            })
+            .catch(error => dispatch(updateTicketFailure(error)));
     }
 }
 

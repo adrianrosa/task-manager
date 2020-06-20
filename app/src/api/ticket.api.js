@@ -30,3 +30,14 @@ export const createTicket = ticket => {
             return response.json();
         });
 }
+
+export const updateTicket = ticket => {
+    const url = `${process.env.REACT_APP_TASK_MANAGER_API}/tickets/${ticket._id}`;
+    return fetch(url, {method: 'PUT', body: JSON.stringify(ticket), headers:{'Content-Type': 'application/json'}})
+        .then(response => {
+            if (!response.ok) {
+                return new Error(`Error to update ticket ${ticket}`);
+            }
+            return response.json();
+        });
+}

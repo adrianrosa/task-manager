@@ -1,5 +1,6 @@
 import { FETCHING_TICKETS_BY_PROJECT, FETCH_TICKETS_BY_PROJECT_SUCCESS, FETCH_TICKETS_BY_PROJECT_FAILURE,
          CREATING_TICKET, CREATE_TICKET_SUCCESS, CREATE_TICKET_FAILURE,
+         UPDATING_TICKET, UPDATE_TICKET_SUCCESS, UPDATE_TICKET_FAILURE,
          DELETING_TICKET, DELETE_TICKET_SUCCESS, DELETE_TICKET_FAILURE } from '../constants';
 
 const initialState = {
@@ -45,6 +46,26 @@ const ticketReducer = (state = initialState, action) => {
                 tickets: allTickets  
             }
         case CREATE_TICKET_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            }
+        case UPDATING_TICKET:
+            return {
+                ...state,
+                isLoading: true
+            };
+        case UPDATE_TICKET_SUCCESS:
+            let tickets = state.tickets.filter(t => t.number !== action.ticket.number);
+            tickets.push(action.ticket);
+            return {
+                ...state,
+                isLoading: false,
+                error: null,
+                tickets: tickets  
+            }
+        case UPDATE_TICKET_FAILURE:
             return {
                 ...state,
                 isLoading: false,

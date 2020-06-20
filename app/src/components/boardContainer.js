@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { getStatuses } from '../actions/status.action';
-import { getTicketsByProjectId, addTicket, deleteTicketById } from '../actions/ticket.action';
+import { getTicketsByProjectId, addTicket, modifyTicket, deleteTicketById } from '../actions/ticket.action';
 import { getProjectById } from '../actions/project.action';
 import { withRouter } from 'react-router-dom';
 import Board from './Board/Board.js';
@@ -29,6 +29,9 @@ const mapDispatchToProps = dispatch => {
         },
         addTicket: ticket => {
             return dispatch(addTicket(ticket));
+        },
+        modifyTicket: ticket => {
+            return dispatch(modifyTicket(ticket));
         },
         deleteTicketById: id => {
             return dispatch(deleteTicketById(id));
