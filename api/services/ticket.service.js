@@ -41,8 +41,8 @@ const stateMachine = {
 };
 
 const ticketToCreate = async(fieds) => {
-    let project = JSON.parse(fieds.project);
-    project.id = ObjectID(project.id);
+    let project = fieds.project;
+    project._id = ObjectID(project._id);
     return statusService.getStatusByName("in_analysis")
         .then(status => {
             return {
@@ -50,7 +50,7 @@ const ticketToCreate = async(fieds) => {
                 number: null,
                 status: status,
                 date_created: fieds.date_created,
-                user: JSON.parse(fieds.user),
+                user: fieds.user,
                 project: project,
                 description: fieds.description
             };
@@ -66,7 +66,7 @@ const ticketToEdit = fields => {
         result.user = fields.user;
     }
     if (fields.hasOwnProperty("project")) {
-        fields.project.id = ObjectID(fields.project.id);
+        fields.project._id = ObjectID(fields.project._id);
         result.project = fields.project;
     }
     if (fields.hasOwnProperty("description")) {

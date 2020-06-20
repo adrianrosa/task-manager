@@ -10,7 +10,7 @@ exports.getOne = (id) => {
 };
 
 exports.getByProject = (projectId) => {
-    let conditions = { "project.id": ObjectID(projectId) };
+    let conditions = { "project._id": ObjectID(projectId) };
     return db.getByConditions(entityName, conditions).then(result => result);
 };
 

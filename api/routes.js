@@ -26,9 +26,7 @@ router.post('/tickets', [
         }
         throw new Error('date_created: format incorrect, timestamp expected');
     }),
-    check('user').isJSON(),
-    check('description').isString().isLength({min: 1}),
-    check('project').isJSON()
+    check('description').isString().isLength({min: 1})
 ], ticketController.create);
 router.put('/tickets/:id', ticketController.change);
 router.patch('/tickets/:id', [
