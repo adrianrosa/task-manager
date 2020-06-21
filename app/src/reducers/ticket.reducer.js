@@ -69,7 +69,7 @@ const ticketReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false,
-                error: action.error
+                error: action.error.message
             }
         case DELETING_TICKET:
             return state;

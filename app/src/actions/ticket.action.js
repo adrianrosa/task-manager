@@ -56,6 +56,9 @@ export const modifyTicket = ticket => {
         dispatch(updatingTicket());
         return updateTicket(ticket)
             .then(response => {
+                if(!response.data) {
+                    dispatch(updateTicketFailure(response));
+                }
                 dispatch(updateTicketSuccess(response.data));
             })
             .catch(error => dispatch(updateTicketFailure(error)));

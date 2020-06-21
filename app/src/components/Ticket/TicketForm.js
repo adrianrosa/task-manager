@@ -108,12 +108,6 @@ class TicketForm extends React.Component {
             ticket: {}
         }));
     }
-    delete(ticket) {
-        if (window.confirm(`¿Está seguro que desea borrar #${ticket.number} ${ticket.title}?`)) {
-            this.close();
-            this.props.handleDelete(ticket);
-        }
-    }
     render() {
         return (
             <Modal id="ticket-modal" open={this.state.show} bottomSheet={false} fixedFooter={false}
@@ -155,7 +149,6 @@ class TicketForm extends React.Component {
                     <Button node="button" type="submit" waves="light" modal="close">
                         Guardar<Icon right>send</Icon>
                     </Button>
-                    {this.props.ticket.title && <Button className="btn-delete" onClick={() => this.delete(this.props.ticket)} node="button" waves="green">Borrar <Icon right>delete</Icon></Button>}
                 </form>
             </Modal>
         )

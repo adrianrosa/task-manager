@@ -13,6 +13,7 @@ const mapStateToProps = (state, ownProps) => {
         tickets: state.ticketReducer.tickets || null,
         ticket: state.ticketReducer.ticket || null,
         project: state.projectReducer.project || null,
+        error: state.ticketReducer.error || null,
     }
 }
 

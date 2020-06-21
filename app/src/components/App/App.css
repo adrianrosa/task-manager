@@ -127,9 +127,17 @@ body #root {
   color: #080E78;
 }
 
+.error-msg {
+  color: red;
+  font-style: italic;
+  float: left;
+  font-size: 1em;
+}
+
 #board-page .card .card-action span.number {
   color: #000;
   font-weight: bold;
+  font-size: 12px;
 }
 
 #projects-page .card-block .card-action a:hover,

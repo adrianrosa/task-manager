@@ -25,7 +25,7 @@ export const createTicket = ticket => {
     return fetch(url, {method: 'POST', body: JSON.stringify(ticket), headers:{'Content-Type': 'application/json'}})
         .then(response => {
             if (!response.ok) {
-                return new Error(`Error to create ticket ${ticket}`);
+                return new Error(`Error to create ticket`);
             }
             return response.json();
         });
@@ -36,7 +36,7 @@ export const updateTicket = ticket => {
     return fetch(url, {method: 'PUT', body: JSON.stringify(ticket), headers:{'Content-Type': 'application/json'}})
         .then(response => {
             if (!response.ok) {
-                return new Error(`Error to update ticket ${ticket}`);
+                return new Error(`Error to update ticket`);
             }
             return response.json();
         });
