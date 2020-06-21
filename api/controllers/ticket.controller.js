@@ -63,15 +63,20 @@ exports.create = async(req, res) => {
 
 exports.change = function (req, res) {
     const ticketToEdit = ticketService.ticketToEdit(req.body);
-    ticket.update(ticketToEdit, req.params.id)
-    .then(ticket => {
-        if (!ticket) {
-            return res.status(404).json({error: true, data: `Ticket ${req.params.id} not found`});
+    ticket.getOne(req.params.id).then(currentTicket => {
+        if (ticketToEdit.status && !ticketService.performTransition(currentTicket.status.name, req.body.status.name)) {
+            return res.status(403).json({error: true, data: `Change status not allowed ${currentTicket.status.name} -> ${req.body.status.name}`});
         }
-        ticketToEdit._id = ticket.insertedId;
-        res.status(200).json({error: false, data: ticketToEdit});
-    })
-    .catch(err => res.status(500).json({error: true, data: err.message}));
+        ticket.update(ticketToEdit, req.params.id)
+        .then(ticket => {
+            if (!ticket) {
+                return res.status(404).json({error: true, data: `Ticket ${req.params.id} not found`});
+            }
+            ticketToEdit._id = ticket.insertedId ? ticket.insertedId : req.params.id;
+            res.status(200).json({error: false, data: ticketToEdit});
+        })
+        .catch(err => res.status(500).json({error: true, data: err.message}));
+    });
 };
 
 exports.updateStatus = async(req, res) => {

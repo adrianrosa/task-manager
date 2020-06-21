@@ -86,8 +86,8 @@ const ticketToEdit = fields => {
 
 const performTransition = (currentStatus, destinationStatus) => {
     let result = false;
-    stateMachine[currentStatus].transitions_to.forEach(transitionStatus => {
-        if (transitionStatus === destinationStatus) {
+    stateMachine[currentStatus.toLowerCase()].transitions_to.forEach(transitionStatus => {
+        if (transitionStatus === destinationStatus.toLowerCase()) {
             result = true;
             return;
         }
