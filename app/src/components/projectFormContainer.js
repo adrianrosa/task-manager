@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
-import { addProject } from '../actions/project.action';
+import { addProject, getProjectById, modifyProject } from '../actions/project.action';
 import ProjectForm from './Project/ProjectForm';
 import { withRouter } from 'react-router-dom';
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        id: state.projectReducer.project.id || null,
+        id: ownProps.match.params.id || null,
         name: state.projectReducer.project.name || "",
         description: state.projectReducer.project.description || "",
         isLoading: state.projectReducer.isLoading || state.ticketReducer.isLoading || false,
@@ -17,6 +17,12 @@ const mapDispatchToProps = dispatch => {
     return {
         addProject: project => {
             return dispatch(addProject(project));
+        },
+        getProjectById: id => {
+            return dispatch(getProjectById(id));
+        },
+        modifyProject: project => {
+            return dispatch(modifyProject(project));
         }
     }
 }

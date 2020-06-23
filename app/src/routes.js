@@ -25,6 +25,9 @@ function Routes() {
                 <Route exact path="/projects/new">
                     <ProjectContainer />
                 </Route>
+                <Route exact path="/projects/:id">
+                    <ProjectContainer />
+                </Route>
             </Switch>
         </Router>
     );

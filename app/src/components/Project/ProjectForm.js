@@ -13,14 +13,28 @@ class ProjectForm extends React.Component {
             saveSucces: false
         }
     }
+    componentDidMount() {
+        if (this.state.id) {
+            this.props.getProjectById(this.state.id)
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        this.setState(prevState => ({
+            ...prevState,
+            name: nextProps.name,
+            description: nextProps.description,
+            date_created: nextProps.date_created
+        }));
+    }
     submit(e) {
         e.preventDefault();
+        let project = {
+            name: this.state.name,
+            description: this.state.description,
+            date_created: this.state.date_created
+        };
         if (!this.state.id) {
-            this.props.addProject({
-                name: this.state.name,
-                description: this.state.description,
-                date_created: this.state.date_created
-            }).then(response => {
+            this.props.addProject(project).then(response => {
                 this.setState(prevState => ({
                     ...prevState,
                     name: "",
@@ -28,6 +42,17 @@ class ProjectForm extends React.Component {
                     saveSucces: true
                 }))
             }).catch(err => console.log(err))
+        } else {
+            project._id = this.state.id;
+            this.props.modifyProject(project)
+                .then(response => {
+                    this.setState((prevState, props) => ({
+                        ...prevState,
+                        name: props.name,
+                        description: props.description,
+                        saveSucces: true
+                    }))
+                })
         }
     }
     cancel(e) {
@@ -51,10 +76,12 @@ class ProjectForm extends React.Component {
             <App container={true}>
                 <Row id="projects-page">
                     <Col s={12} m={12} l={12}>
-                        {this.state.saveSucces && (<p className="success-msg"><Icon left>verified_user</Icon> Projecto creado exitosamente</p>)}
+                        {this.state.saveSucces && !this.state.id && (<p className="success-msg"><Icon left>verified_user</Icon> Projecto creado exitosamente</p>)}
+                        {this.state.saveSucces && this.state.id && (<p className="success-msg"><Icon left>verified_user</Icon> Projecto actualizado exitosamente</p>)}
                     </Col>
                     <Col s={12} m={12} l={12}>
                         {!this.state.id && (<h1 className="title-page-inline"><Icon left>business_center</Icon> Nuevo proyecto</h1>)}
+                        {this.state.id && (<h1 className="title-page-inline"><Icon left>business_center</Icon> {this.state.name}</h1>)}
                     </Col>
                     <form onSubmit={(e) => this.submit(e)}>
                         <Col s={12} m={12} l={12}>
@@ -63,7 +90,7 @@ class ProjectForm extends React.Component {
                         <Col s={12} m={12} l={12}>
                             <Textarea label={"Descripción"} s={12} m={12} l={12} data-length={1000} value={this.state.description} onChange={e => this.onInputChange(e, "description")} />
                         </Col>
-                        <TextInput type="hidden" value={this.state.date_created} />
+                        {!this.state.id && <TextInput type="hidden" value={this.state.date_created} onChange={e => this.onInputChange(e, "date_created")} />}
                         <Col s={2} m={2} l={2}>
                             <Button type="submit">
                                 Guardar<Icon right>send</Icon>

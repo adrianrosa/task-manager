@@ -31,3 +31,14 @@ export const create = project => {
             return response.json();
         });
 }
+
+export const update = project => {
+    const url = `${process.env.REACT_APP_TASK_MANAGER_API}/projects/${project._id}`;
+    return fetch(url, {method: 'PUT', body: JSON.stringify(project), headers:{'Content-Type': 'application/json'}})
+        .then(response => {
+            if (!response.ok) {
+                return new Error(`Error to update project`);
+            }
+            return response.json();
+        });
+}
