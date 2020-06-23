@@ -318,3 +318,11 @@ Nota: todos los campos de tipo fecha (por ejemplo, `date_created`) deben enviars
 - Entidad inexistente o verbo no implementado: 404
 
 ## Configuración inicial
+
+Para arrancar la solución:
+- API: ubicarse en la carpeta /api y ejectuar:
+`npm install && npm start` <br />
+Lo cual iniciará la API en el puerto 3500 (http://localhost:3500/)
+- APP: ubicarse en la carpeta  /app y ejecutar:
+`npm install && npm start` <br />
+Lo cual iniciará la app en el puerto 3000 (http://localhost:3000/)
