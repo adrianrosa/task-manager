@@ -1,5 +1,6 @@
 import { FETCHING_PROJECTS, FETCH_PROJECTS_SUCCESS, FETCH_PROJECTS_FAILURE,
-         FETCHING_PROJECT, FETCH_PROJECT_SUCCESS, FETCH_PROJECT_FAILURE } from '../constants';
+         FETCHING_PROJECT, FETCH_PROJECT_SUCCESS, FETCH_PROJECT_FAILURE,
+         CREATING_PROJECT, CREATE_PROJECT_SUCCESS, CREATE_PROJECT_FAILURE } from '../constants';
 
 const initialState = {
     projects: [],
@@ -49,6 +50,26 @@ const projectReducer = (state = initialState, action) => {
                 project: [],
                 isLoading: false,
                 error: action.data
+            }
+        case CREATING_PROJECT:
+            return {
+                ...state,
+                isLoading: true
+            };
+        case CREATE_PROJECT_SUCCESS:
+            let allProjects = state.projects;
+            allProjects.push(action.project);
+            return {
+                ...state,
+                isLoading: false,
+                error: null,
+                projects: allProjects  
+            }
+        case CREATE_PROJECT_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
             }
         default:
             return state;

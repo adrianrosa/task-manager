@@ -134,6 +134,13 @@ body #root {
   font-size: 1em;
 }
 
+.success-msg {
+  color: green;
+  font-style: italic;
+  float: left;
+  font-size: 1em;
+}
+
 #board-page .card .card-action span.number {
   color: #000;
   font-weight: bold;

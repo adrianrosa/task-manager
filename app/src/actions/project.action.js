@@ -1,7 +1,8 @@
 import { FETCHING_PROJECTS, FETCH_PROJECTS_SUCCESS, FETCH_PROJECTS_FAILURE,
-         FETCHING_PROJECT, FETCH_PROJECT_SUCCESS, FETCH_PROJECT_FAILURE } from '../constants';
+         FETCHING_PROJECT, FETCH_PROJECT_SUCCESS, FETCH_PROJECT_FAILURE,
+         CREATING_PROJECT, CREATE_PROJECT_SUCCESS, CREATE_PROJECT_FAILURE } from '../constants';
 
-import { getAll, getById } from '../api/project.api';
+import { getAll, getById, create } from '../api/project.api';
 
 export const fetchingProjects = () => ({ type: FETCHING_PROJECTS })
 
@@ -14,6 +15,12 @@ export const fetchingProject = () => ({ type: FETCHING_PROJECT })
 export const fetchProjectSuccess = project => ({ type: FETCH_PROJECT_SUCCESS, project })
 
 export const fetchProjectFailure = error => ({ type: FETCH_PROJECT_FAILURE, error })
+
+export const creatingProject = () => ({ type: CREATING_PROJECT })
+
+export const createProjectSuccess = project => ({ type: CREATE_PROJECT_SUCCESS, project })
+
+export const createProjectFailure = error => ({ type: CREATE_PROJECT_FAILURE, error })
 
 export const getProjects = () => {
     return (dispatch) => {
@@ -34,5 +41,16 @@ export const getProjectById = id => {
                 dispatch(fetchProjectSuccess(response.data));
             })
             .catch(error => dispatch(fetchProjectFailure(error)));
+    }
+}
+
+export const addProject = project => {
+    return dispatch => {
+        dispatch(creatingProject());
+        return create(project)
+            .then(response => {
+                dispatch(createProjectSuccess(response.data));
+            })
+            .catch(error => dispatch(createProjectFailure(error)));
     }
 }

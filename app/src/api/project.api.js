@@ -19,3 +19,15 @@ export const getById = id => {
             return response.json();
         });
 }
+
+export const create = project => {
+    const url = `${process.env.REACT_APP_TASK_MANAGER_API}/projects`;
+    console.log(JSON.stringify(project))
+    return fetch(url, {method: 'POST', body: JSON.stringify(project), headers:{'Content-Type': 'application/json'}})
+        .then(response => {
+            if (!response.ok) {
+                return new Error(`Error to create project`);
+            }
+            return response.json();
+        });
+}

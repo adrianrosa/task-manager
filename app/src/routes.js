@@ -7,6 +7,7 @@ import {
 import Home from './components/Home/Home';
 import ProjectListContainer from './components/projectListContainer';
 import BoardContainer from './components/boardContainer';
+import ProjectContainer from './components/projectFormContainer';
 
 function Routes() {
     return (
@@ -20,6 +21,9 @@ function Routes() {
                 </Route>
                 <Route exact path="/projects/:id/board">
                     <BoardContainer />
+                </Route>
+                <Route exact path="/projects/new">
+                    <ProjectContainer />
                 </Route>
             </Switch>
         </Router>
