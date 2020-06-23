@@ -20,8 +20,6 @@ Las entidades que presentará el sistema son las siguientes:
     
 -   Estado
     
--   Usuario
-    
 Las propiedades de cada una de ellas serán:
 
 -   Tarea: id, numero, titulo, fecha_creacion, estado, usuario, descripcion, proyecto
@@ -29,8 +27,6 @@ Las propiedades de cada una de ellas serán:
 -   Proyecto: id, nombre, fecha_creacion, descripcion
     
 -   Estado: id, nombre
-    
--   Usuario: id, nombre, apellido, email
 
 ### Limites del sistema
 
