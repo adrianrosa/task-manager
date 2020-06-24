@@ -1,45 +1,6 @@
 let ObjectID = require('mongodb').ObjectID;
 const statusService = require('./status.service');
 
-const stateMachine = {
-    in_analysis:{
-        transitions_to: [
-            "to_do"
-        ]
-    },
-    to_do: {
-        transitions_to: [
-            "in_analysis",
-            "in_progress"
-        ]
-    },
-    in_progress: {
-        transitions_to: [
-            "to_do",
-            "in_qa"
-        ]
-    },
-    in_qa: {
-        transitions_to: [
-            "to_do",
-            "in_review"
-        ]
-    },
-    in_review: {
-        transitions_to: [
-            "in_qa",
-            "in_analysis",
-            "done"
-        ]
-    },
-    done: {
-        transitions_to: [
-            "in_analysis",
-            "to_do"
-        ]
-    }
-};
-
 const ticketToCreate = async(fieds) => {
     let project = fieds.project;
     project._id = ObjectID(project._id);
@@ -86,13 +47,28 @@ const ticketToEdit = fields => {
 
 const performTransition = (currentStatus, destinationStatus) => {
     let result = false;
-    stateMachine[currentStatus.toLowerCase()].transitions_to.forEach(transitionStatus => {
+    return loadStateMachine().then(stateMachine => {
+        stateMachine[currentStatus.toLowerCase()].transitions_to.forEach(transitionStatus => {
         if (transitionStatus === destinationStatus.toLowerCase()) {
-            result = true;
-            return;
-        }
+                result = true;
+                return;
+            }
+        });
+        return result;
     });
-    return result;
+};
+
+const loadStateMachine = () => {
+    let result = {};
+    return statusService.getAll()
+    .then(statuses => {
+        statuses.forEach(status => {
+            result[status.name] = {
+                transitions_to: status.transitions
+            }
+        })
+        return result;
+    });
 };
 
 exports.performTransition = performTransition;

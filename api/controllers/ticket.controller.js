@@ -61,10 +61,11 @@ exports.create = async(req, res) => {
     .catch(err => res.status(500).json({error: true, data: err.message}));
 };
 
-exports.change = function (req, res) {
+exports.change = async function (req, res) {
     const ticketToEdit = ticketService.ticketToEdit(req.body);
-    ticket.getOne(req.params.id).then(currentTicket => {
-        if (ticketToEdit.status && !ticketService.performTransition(currentTicket.status.name, req.body.status.name)) {
+    ticket.getOne(req.params.id).then(async currentTicket => {
+        const allowStatusChange = await ticketService.performTransition(currentTicket.status.name, req.body.status.name);
+        if (ticketToEdit.status && !allowStatusChange) {
             return res.status(403).json({error: true, data: `Change status not allowed ${currentTicket.status.name} -> ${req.body.status.name}`});
         }
         ticket.update(ticketToEdit, req.params.id)
@@ -85,7 +86,8 @@ exports.updateStatus = async(req, res) => {
         if (!ticketRecord) {
             return res.status(404).json({error: true, data: `Ticket ${req.params.id} not found`});
         }
-        if (!ticketService.performTransition(ticketRecord.status.name, req.body.new_status)) {
+        const allowStatusChange = await ticketService.performTransition(ticketRecord.status.name, req.body.new_status)
+        if (!allowStatusChange) {
             return res.status(403).json({error: true, data: `Change status not allowed ${ticketRecord.status.name} -> ${req.body.new_status}`});
         }
         const statusObject = await statusService.getStatusByName(req.body.new_status);

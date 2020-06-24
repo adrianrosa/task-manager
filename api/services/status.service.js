@@ -10,4 +10,10 @@ const getStatusByName = async(name) => {
 	});
 };
 
+const getAll = () => {
+	return statusModel.getAll()
+	.then(statuses => statuses);
+}
+
 exports.getStatusByName = getStatusByName;
+exports.getAll = getAll;
