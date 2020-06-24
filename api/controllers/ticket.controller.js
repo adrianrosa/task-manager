@@ -64,8 +64,8 @@ exports.create = async(req, res) => {
 exports.change = async function (req, res) {
     const ticketToEdit = ticketService.ticketToEdit(req.body);
     ticket.getOne(req.params.id).then(async currentTicket => {
-        const allowStatusChange = await ticketService.performTransition(currentTicket.status.name, req.body.status.name);
-        if (ticketToEdit.status && !allowStatusChange) {
+        const allowStatusChange = await ticketService.performTransition(currentTicket.status.name, req.body.status.name) || currentTicket.status.name.toLowerCase() === req.body.status.name.toLowerCase();
+        if (!allowStatusChange) {
             return res.status(403).json({error: true, data: `Change status not allowed ${currentTicket.status.name} -> ${req.body.status.name}`});
         }
         ticket.update(ticketToEdit, req.params.id)
@@ -86,7 +86,7 @@ exports.updateStatus = async(req, res) => {
         if (!ticketRecord) {
             return res.status(404).json({error: true, data: `Ticket ${req.params.id} not found`});
         }
-        const allowStatusChange = await ticketService.performTransition(ticketRecord.status.name, req.body.new_status)
+        const allowStatusChange = await ticketService.performTransition(ticketRecord.status.name, req.body.new_status) || ticketRecord.status.name.toLowerCase() === req.body.new_status.toLowerCase();
         if (!allowStatusChange) {
             return res.status(403).json({error: true, data: `Change status not allowed ${ticketRecord.status.name} -> ${req.body.new_status}`});
         }
