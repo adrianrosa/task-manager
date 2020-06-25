@@ -15,7 +15,7 @@ exports.getByProject = (projectId) => {
 };
 
 exports.getByStatus = (statusId) => {
-    let conditions = { "status.id": ObjectID(statusId) };
+    let conditions = { "status._id": ObjectID(statusId) };
     return db.getByConditions(entityName, conditions).then(result => result);
 };
 

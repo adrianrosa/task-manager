@@ -49,6 +49,8 @@ Lo que no podrá gestionar en esta versión será:
 
 Base URL: `http://localhost:3500/` <br /><br />
 
+<a href="https://web.postman.co/collections/11850103-c66f3af9-8a30-e02f-5d39-786f1151bd9d?workspace=c35a57ca-7fcd-4e12-89d6-d614f7cd45d7">Link</a> de Postman para ver la doc
+
 <b>Formato del body de respuesta</b>: `{error: boolean, data: object}` <br />
 - El atributo error indicará con un booleano si la petición fue exitosa o no. <br />
 - El atributo data contendrá los datos de respuesta en caso de éxito o una descripción del error si hay una falla.
