@@ -16,8 +16,6 @@ router.get('/', (req, res, next) => {
 /* Ticket routes */
 router.get('/tickets', ticketController.getAll);
 router.get('/tickets/:id', ticketController.getOne);
-router.get('/tickets/project/:id', ticketController.getByProject);
-router.get('/tickets/status/:id', ticketController.getByStatus);
 router.post('/tickets', [
     check('title').isString().isLength({min: 1}),
     body('date_created').custom((value, {req}) => {
@@ -37,6 +35,7 @@ router.delete('/tickets/:id', ticketController.delete);
 /* Project routes */
 router.get('/projects', projectController.getAll);
 router.get('/projects/:id', projectController.getOne);
+router.get('/projects/:id/tickets', ticketController.getByProject);
 router.post('/projects', [
     check('name').isString().isLength({min: 1}),
     body('date_created').custom((value, {req}) => {
@@ -52,5 +51,6 @@ router.delete('/projects/:id', projectController.delete);
 
 /* Status routes */
 router.get('/statuses', statusController.getAll);
+router.get('/status/:id/tickets', ticketController.getByStatus);
 
 module.exports = router;
