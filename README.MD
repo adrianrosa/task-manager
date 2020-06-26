@@ -89,7 +89,7 @@ Nota: todos los campos de tipo fecha (por ejemplo, `date_created`) deben enviars
   404: no existe el ticket solicitado
   ```
 
-- <b>GET</b> `/tickets/proyect/{id}` <br />
+- <b>GET</b> `/projects/{id}/tickets` <br />
 <i>Descripción</i>: obtener todos los tickets asociados a un proyecto.<br />
 <i>Parámetros</i>:
   ```
@@ -106,7 +106,7 @@ Nota: todos los campos de tipo fecha (por ejemplo, `date_created`) deben enviars
   204: no hay ningún ticket asociado a dicho proyecto
   ```
 
-- <b>GET</b> `/tickets/status/{id}` <br />
+- <b>GET</b> `/statuses/{id}/tickets` <br />
 <i>Descripción</i>: obtener todos los tickets que estén en un estado en específico.<br />
 <i>Parámetros</i>:
   ```
