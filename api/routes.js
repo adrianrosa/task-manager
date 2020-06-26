@@ -51,6 +51,6 @@ router.delete('/projects/:id', projectController.delete);
 
 /* Status routes */
 router.get('/statuses', statusController.getAll);
-router.get('/status/:id/tickets', ticketController.getByStatus);
+router.get('/statuses/:id/tickets', ticketController.getByStatus);
 
 module.exports = router;
